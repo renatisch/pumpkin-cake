@@ -1,0 +1,29 @@
+{
+    "logs": [
+        {
+            "job_id": "f162a372-d9fb-44b5-94e7-0c17d883d8d2",
+            "details": "Creating an agent",
+            "completed": true
+        },
+        {
+            "job_id": "4407139b-6220-46fd-b906-88f3242bcbab",
+            "details": "Invalid input of type: 'Job_Model'. Convert to a bytes, string, int or float first.",
+            "completed": false
+        },
+        {
+            "job_id": "75a33d4c-5c79-400d-84fe-6a6fe1787ffa",
+            "details": "Invalid input of type: 'dict'. Convert to a bytes, string, int or float first.",
+            "completed": false
+        },
+        {
+            "job_id": "37770d7b-4510-4182-846b-746a1f96e63c",
+            "details": "Invalid input of type: 'dict'. Convert to a bytes, string, int or float first.",
+            "completed": false
+        },
+        {
+            "job_id": "e181d360-8c12-41c4-abbc-38a929e120da",
+            "details": "Creating an agent",
+            "completed": true
+        }
+    ]
+}
