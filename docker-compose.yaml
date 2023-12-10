@@ -34,6 +34,8 @@ services:
       environment:
         - ELASTICSEARCH_HOSTS=http://elasticsearchai:9200
   mongo:
+    depends_on:
+          - kibanaai
     image: mongo
     ports:
       - '27017:27017'
@@ -42,6 +44,8 @@ services:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
   cache:
+    depends_on:
+          - mongo
     image: redis
     restart: always
     ports:
@@ -49,28 +53,32 @@ services:
     command: redis-server --save 20 1 --loglevel warning
     volumes: 
       - cache:/data
-  frontend:
-      depends_on:
-        - kibanaai
-      build: ./frontend
-      image: frontend
-      container_name: frontend
-      command: npm start
-      ports:
-        - 3000:3000
-      volumes:
-        - ./frontend:/frontend
   api:
     depends_on:
-      - frontend
+      - cache
     build: ./backend
     image: api
     container_name: api
+    # running bin bash script to spin up fastapi and rq worker
     command: ["/bin/bash", "./run_services.sh"]
     ports:
       - 8000:8000
     volumes:
        - ./backend:/api
+  frontend:
+    depends_on:
+      - api
+    build: ./frontend
+    image: frontend
+    container_name: frontend
+    command: ["/bin/bash", "./run_services.sh"]
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/frontend
+    environment:
+    # Adding REACT_APP prefix, so that react could pick the ES_index env. var. 
+      - REACT_APP_ES_INDEX=${ES_INDEX}
 volumes:
   dbdata6:
   cache:

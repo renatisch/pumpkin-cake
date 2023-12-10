@@ -64,8 +64,10 @@ const HitView = (props) => {
 };
 
 const App = () => {
+  // elastic search index name passed as env. variable via docker.
+  const { REACT_APP_ES_INDEX } = process.env;
   return (
-    <InstantSearch indexName="alteryx_updates" searchClient={searchClient}>
+    <InstantSearch indexName={REACT_APP_ES_INDEX} searchClient={searchClient}>
       <SearchBox />
       <div style={{ display: "flex" }}>
         <RefinementList
