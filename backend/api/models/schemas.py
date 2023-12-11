@@ -3,13 +3,20 @@ from enum import Enum
 
 
 # Response example models
-class Alteryx_LLM_Example_Response_Model(BaseModel):
-    input_example: str
-    Feature: str
-    Summary: str
-    Tags: str
-    Deprecations: str | None = None
+# class Alteryx_LLM_Example_Response_Model(BaseModel):
+#     input_example: str
+#     Feature: str
+#     Summary: str
+#     Tags: str
+#     Deprecations: str | None = None
 
+class LLM_AtributeExample(BaseModel):
+    id: str
+    value: str | int | None = None
+
+class LLM_Example(BaseModel):
+    input: str
+    desired_attributes: list[LLM_AtributeExample]
 
 #  LLM schema models
 class Type_Enum(str, Enum):
@@ -27,8 +34,9 @@ class LLM_Schema(BaseModel):
     name: str
     type: str
     description: str
-    attributes: list[LLM_Attribute]
-    examples: list[Alteryx_LLM_Example_Response_Model]
+    attributes: list[LLM_Attribute]    
+    examples: list[LLM_Example]
+    #examples: list[Alteryx_LLM_Example_Response_Model]  # this breaks the general character of the schema
     many: bool
 
 
