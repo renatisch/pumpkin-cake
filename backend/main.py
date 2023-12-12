@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from api.routers import schemas
 from api.config.database import ping_mongo, client
-from api.routers import jobs
+from api.routers import jobs, schemas, texts
 
 app = FastAPI()
 try:
@@ -16,7 +16,9 @@ async def root():
     return {"status": "API is running"}
 
 
+
 app.include_router(jobs.job_router, prefix="/jobs")
 app.include_router(schemas.agent_schema_router, prefix="/schemas")
 app.include_router(schemas.loader_schema_router, prefix="/schemas")
 app.include_router(schemas.llm_schema_router, prefix="/schemas")
+app.include_router(texts.texts_router, prefix="/texts")
