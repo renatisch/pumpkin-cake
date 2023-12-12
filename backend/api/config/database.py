@@ -20,6 +20,8 @@ llm_schemas_collection = db["llm_schemas"]
 # jobs
 jobs_collection = db["jobs"]
 
+# text data
+texts_collection = db["texts"]
 
 def ping_mongo():
     respose = client.db_name.command("ping")
