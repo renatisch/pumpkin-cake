@@ -1,0 +1,28 @@
+.pageContainer {
+    display: flex;
+    padding: var(--3, 24px);
+}
+.pageHeaderContainer {
+    display: flex;
+    align-items: flex-start;
+    align-self: stretch;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  .headerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--1, 8px);
+    flex: 1 0 0;
+    margin-bottom: 20;
+  }
+  
+  .pageTitle {
+    color: var(--text-primary, #171A1C);
+    /* h1 */
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 133%; /* 47.88px */  
+  }

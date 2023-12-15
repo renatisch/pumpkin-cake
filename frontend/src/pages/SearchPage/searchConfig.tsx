@@ -1,13 +1,6 @@
-import React from "react";
+
 import Client from "@searchkit/instantsearch-client";
 import Searchkit from "searchkit";
-import {
-  InstantSearch,
-  SearchBox,
-  Hits,
-  RefinementList,
-} from "react-instantsearch-hooks-web";
-import { Snippet, Highlight } from "react-instantsearch-hooks-web";
 
 // Create a Searchkit client
 // This is the configuration for Searchkit, specifying the fields to attributes used for search, facets, etc.
@@ -46,42 +39,4 @@ const sk = new Searchkit({
 
 const searchClient = Client(sk);
 
-const HitView = (props) => {
-  console.log(props.hit);
-  return (
-    <div>
-      <h2>
-        <Highlight attribute="Feature" hit={props.hit} />
-      </h2>
-      <Snippet attribute="Summary" hit={props.hit} />
-      <p>{props.hit.Release}</p>
-      <p>{props.hit.Product}</p>
-      <p>{props.hit.Type}</p>
-      <p>{props.hit.Tags}</p>
-      <p>{props.hit.Deprecations}</p>
-    </div>
-  );
-};
-
-const App = () => {
-  // elastic search index name passed as env. variable via docker.
-  const { REACT_APP_ES_INDEX } = process.env;
-  return (
-    <InstantSearch indexName={REACT_APP_ES_INDEX} searchClient={searchClient}>
-      <SearchBox />
-      <div style={{ display: "flex" }}>
-        <RefinementList
-          attribute="Release"
-          style={{ width: "20%", marginTop: "20px", paddingLeft: "20px" }}
-        />
-        <Hits
-          hitComponent={HitView}
-          style={{ width: "100%" }}
-          title="Releases"
-        />
-      </div>
-    </InstantSearch>
-  );
-};
-
-export default App;
+export default searchClient
