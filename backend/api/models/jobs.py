@@ -19,11 +19,13 @@ class JobItem(BaseModel):
 class JobLog(BaseModel):
     _id: ObjectId
     job_id: str
+    name: str
     enqued_at: datetime
     started_at: datetime
     ended_at: Optional[datetime] | None = None
     is_scheduled: bool
     type: str
+    description: str
     completed: bool
     error: Optional[str] | None = None
 

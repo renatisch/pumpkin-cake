@@ -32,15 +32,20 @@ async def get_web_data(schema_name: str, description: str) -> None:
     agent_schema = agent_schemas_collection.find_one({"name": schema_name})
     if agent_schema is not None and schema_name in agents_scrapers.keys():
         print(agent_schema)
-        for location in agent_schema['locations']:
-            print(location['url'])
-            exists = texts_collection.find_one({"uri": location['url']})
+        for location in agent_schema["locations"]:
+            print(location["url"])
+            exists = texts_collection.find_one({"uri": location["url"]})
             if not exists:
-                await agents_scrapers[agent_schema['name']](location['url'], location['meta'])
+                await agents_scrapers[agent_schema["name"]](
+                    location["url"], location["meta"]
+                )
             else:
-                print(f"Text from uri {location['url']} already exists. Please update instead.")
+                print(
+                    f"Text from uri {location['url']} already exists. Please update instead."
+                )
     else:
         raise Exception(f"Schema {schema_name} has no scraper.")
+
 
 # JOBS CRUD operations
 @job_router.get("/")
@@ -59,7 +64,11 @@ async def create_job(jobItem: JobItem) -> JobItem:
         connection=redis_conn,
         func=get_web_data,
         args=[jobItem.schema_name],
-        kwargs={"description": job_description},
+        kwargs={
+            "description": job_description,
+            "type": jobItem.type,
+            "name": jobItem.name,
+        },
         on_success=report_success,
         on_failure=report_failure,
     )

@@ -17,21 +17,25 @@ def report_success(job: Job, connection, result, *args, **kwargs):
         started_at=job.started_at,
         is_scheduled=job.is_scheduled,
         completed=True,
-        type=job.kwargs["description"],
+        type=job.kwargs["type"],
     )
     jobs_collection.insert_one(current_job.model_dump())
     print("result is here", result)
 
 
 def report_failure(job, connection, type, value, traceback):
-    job_type = job.kwargs["description"]
+    job_type = job.kwargs["type"]
+    job_description = job.kwargs["description"]
+    job_name = job.kwargs["name"]
     current_job = JobLog(
         job_id=job.id,
+        name=job.kwargs["name"],
         enqued_at=job.enqueued_at,
         started_at=job.started_at,
         is_scheduled=job.is_scheduled,
         completed=False,
         type=job_type,
+        description=job_description,
         error=str(value),
     )
     jobs_collection.insert_one(current_job.model_dump())
