@@ -1,6 +1,3 @@
-
 export default function LoadersPage() {
-  return (
-    <></>
-  )
+  return <h5>Loaders page</h5>;
 }

@@ -1,4 +1,3 @@
-
 import Client from "@searchkit/instantsearch-client";
 import Searchkit from "searchkit";
 
@@ -39,4 +38,4 @@ const sk = new Searchkit({
 
 const searchClient = Client(sk);
 
-export default searchClient
+export default searchClient;
